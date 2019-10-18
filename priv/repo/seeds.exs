@@ -1,11 +1,11 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     CarsApi.Repo.insert!(%CarsApi.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+#db seed
+alias CarsApi.Repo
+alias CarsApi.Data.Schema.Cars
+import Ecto.Changeset only: [change: 2]
+
+lists = CarsApi.Tools.GenerateNewDataset.transform_elixir_map_struct("/home/shegx01/Desktop/cars_api/cars_api/items.bin")
+
+Enum.each(list, fn ->
+
+  Repo.insert!(struct, opts \\ [])
+end)

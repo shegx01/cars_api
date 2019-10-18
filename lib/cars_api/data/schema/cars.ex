@@ -4,6 +4,9 @@ defmodule CarsApi.Data.Schema.Cars do
 
   @type t :: %__MODULE__{}
 
+  @permitted_fields [:stock_number, :year, :make, :model, :body, :trim, :base_price, :msrp, :image_count, :mileage, :interior_color, :transmission, :features, :images]
+
+
   schema "cars" do
     field :stock_number, :integer
     field :year, :integer
@@ -11,7 +14,7 @@ defmodule CarsApi.Data.Schema.Cars do
     field :model, :string
     field :body, :string
     field :trim, :string
-    field :base_price, :integer
+    field :base_price,  Money.Currency.Ecto.Type
     field :msrp, :integer
     field :image_count, :integer
     field :mileage, :integer
@@ -24,11 +27,13 @@ defmodule CarsApi.Data.Schema.Cars do
     timestamps()
   end
 
-  @permitted_fields ~w(stock_number, year, make, model, body, trim, base_price, msrp, image_count, mileage, exterior_colour, interior_color, transmission, features, images)a
 
-  def changeset(%__MODULE__{} = model, params) do
+
+
+
+
+  def changeset(%__MODULE__{} = model, params\\%{}) do
     model
     |> cast(params, @permitted_fields)
-    |> validate_required(@permitted_fields)
   end
 end
