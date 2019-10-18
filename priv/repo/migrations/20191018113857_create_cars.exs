@@ -2,7 +2,6 @@ defmodule CarsApi.Repo.Migrations.CreateCars do
   use Ecto.Migration
 
   def up do
-
     create table("cars") do
       add :stock_number, :integer
       add :year, :integer
@@ -22,7 +21,16 @@ defmodule CarsApi.Repo.Migrations.CreateCars do
       timestamps()
     end
 
-    create index("cars", [:make, :model, :year, :base_price, :mileage, :features, :exterior_color, :transmission])
+    create index("cars", [
+             :make,
+             :model,
+             :year,
+             :base_price,
+             :mileage,
+             :features,
+             :exterior_color,
+             :transmission
+           ])
   end
 
   def down do
