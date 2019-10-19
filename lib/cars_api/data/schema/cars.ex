@@ -16,6 +16,7 @@ defmodule CarsApi.Data.Schema.Cars do
     :image_count,
     :mileage,
     :interior_color,
+    :exterior_color,
     :transmission,
     :features,
     :image

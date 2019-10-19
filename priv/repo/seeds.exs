@@ -2,7 +2,9 @@
 alias CarsApi.Data.Schema.Cars
 
 lists =
-  
+  CarsApi.Tools.GenerateNewDataset.transform_elixir_map_struct(
+    "/home/shegx01/Desktop/cars_api/cars_api/items.bin"
+  )
 
 remove_nil = fn map_item, item_key, value ->
   case Map.get(map_item, item_key) do
@@ -17,10 +19,10 @@ end
 Enum.each(lists, fn car ->
   with car_not_nil <- remove_nil.(car, "image_count", 0),
        price <- Map.get(car_not_nil, "base_price", 0),
-       car_with_price <- %{car | "base_price" => Money.new(round(price))} do
+       car_with_price <- %{car_not_nil | "base_price" => Money.new(round(price))} do
     car_with_img =
       case Map.get(car_with_price, "image_count") do
-        nil ->
+        0 ->
           Map.put(
             car_with_price,
             "image",
