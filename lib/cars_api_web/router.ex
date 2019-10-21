@@ -5,10 +5,10 @@ defmodule CarsApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CarsApiWeb do
+  scope "/api", CarsApiWeb do
     pipe_through :api
   end
 
-  forward("/api", Absinthe.Plug, Schema: CarsApiWeb.Schema)
-  forward("/graphiql", Absinthe.Plug.GraphiQL, CarsApiWeb.Schema, interface: :advanced)
+  forward("/api", Absinthe.Plug, schema: CarsApiWeb.Schema)
+  forward("/graphiql", Absinthe.Plug.GraphiQL, schema: CarsApiWeb.Schema, interface: :advanced)
 end

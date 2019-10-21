@@ -29,7 +29,7 @@ defmodule CarsApi.Data.Schema.Cars do
     field :model, :string
     field :body, :string
     field :trim, :string
-    field :base_price, Money.Ecto.Map.Type
+    field :base_price, Money.Ecto.Amount.Type
     field :msrp, :float
     field :image_count, :integer, null: false, default: 0
     field :mileage, :integer
