@@ -19,7 +19,7 @@ end
 Enum.each(lists, fn car ->
   with car_not_nil <- remove_nil.(car, "image_count", 0),
        price <- Map.get(car_not_nil, "base_price", 0),
-       car_with_price <- %{car_not_nil | "base_price" => Money.new(round(price))} do
+       car_with_price <- %{car_not_nil | "base_price" => round(price)} do
     car_with_img =
       case Map.get(car_with_price, "image_count") do
         0 ->
