@@ -1,6 +1,7 @@
 defmodule CarsApiWeb.Schema.CarTypes do
   use Absinthe.Schema.Notation
 
+
   @desc "a single car item request from the store"
   object :car_item do
     field :stock_number, :integer, description: "unique carItem id"
@@ -12,63 +13,73 @@ defmodule CarsApiWeb.Schema.CarTypes do
     field :base_price, :integer, description: "car base selling price"
     field :msrp, :float, description: "manufacturer's suggested retail price"
     field :image_count, :integer, description: "number of images available"
-    field :mileage, :integer, description: "miles it has driven so far from the time of purchase as new"
+
+    field :mileage, :integer,
+      description: "miles it has driven so far from the time of purchase as new"
+
     field :exterior_color, :string, description: "outer car color"
     field :interior_color, :string, description: "interior color of the car"
-    field :transmission, :string, description: "gearbox transmission type e.g auto, n-speed and self-shifting"
+
+    field :transmission, :string,
+      description: "gearbox transmission type e.g auto, n-speed and self-shifting"
+
     field :features, list_of(:string), description: "list of the features"
-    field :image, list_of(:string), description: "list of available images"
+
+    field :image, :string, description: "an image others can gbet generated from the return url"
+
   end
 
+  # @desc "filters for car items in the store "
+  # input_object :car_item_filter do
+  #   field :price, :range_input, description: "filter cars based on different price ranges min max"
+  #   field :make, :string, description: "filter by car make"
+  #   field :year_range, :range_input, description: "filter by car year range"
+  #   field :mileage, :integer, description: "filter by car mileage  7000 will return cars with mileage less than 7000"
+  #   field :features, :string, description: "return cars that has keyword provided"
+  #   field :car_color, :color_input, description: "return cars with exterior and or interior color match"
 
+  # end
 
-#   @desc "filters for car items in the store "
-#   input_object :car_item_filter do
-#     field :price, :range_input, description: "filter cars based on different price ranges min max"
-#     field :make, :string, description: "filter by car make"
-#     field :year_range, :range_input, description: "filter by car year range"
-#     field :mileage, :integer, description: "filter by car mileage  7000 will return cars with mileage less than 7000"
-#     field :features, :string, description: "return cars that has keyword provided"
-#     field :car_color, :color_input, description: "return cars with exterior and or interior color match"
+  #   @desc "color criteria for filtering with color"
+  #   enum :color_value do
+  #     value(:black)
+  #     value(:blue)
+  #     value(:gray)
+  #     value(:white)
+  #     value(:red)
+  #     value(:gold)
+  #     value(:purple)
+  #     value(:yellow)
+  #   end
 
-#   end
+  #   @desc "sorting the car items based on value criterias"
+  #   enum :sort_by do
+  #     value :lowest_price
+  #     value :highest_price
+  #     value :lowest_mileage
+  #     value :highest_mileage
+  #     value :newest_year
+  #     value :oldest_year
+  #   end
 
-#   @desc "color criteria for filtering with color"
-#   enum :color_value do
-#     value(:black)
-#     value(:blue)
-#     value(:gray)
-#     value(:white)
-#     value(:red)
-#     value(:gold)
-#     value(:purple)
-#     value(:yellow)
-#   end
+  #   @desc "object to provide interior and exterior color for filter criteria"
+  #   input_object :color_input do
+  #     field :exterior_color, :color_value
+  #     field :interior_color, :color_value
+  #   end
 
-#   @desc "sorting the car items based on value criterias"
-#   enum :sort_by do
-#     value :lowest_price
-#     value :highest_price
-#     value :lowest_mileage
-#     value :highest_mileage
-#     value :newest_year
-#     value :oldest_year
-#   end
+  # @desc "object to provide minimum and maximum requirement for filter criteria"
+  #   input_object :range_input do
+  #     field :min, :integer
+  #     field :max, :integer
+  #   end
 
+  #####################################
+  # input object types
+  #####################################
 
-
-#   @desc "object to provide interior and exterior color for filter criteria"
-#   input_object :color_input do
-#     field :exterior_color, :color_value
-#     field :interior_color, :color_value
-#   end
-
-# @desc "object to provide minimum and maximum requirement for filter criteria"
-#   input_object :range_input do
-#     field :min, :integer
-#     field :max, :integer
-#   end
-
-
-
+  input_object :take_input do
+    field :amount, :integer
+    field :offset, :integer
+  end
 end
