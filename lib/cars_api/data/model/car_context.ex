@@ -16,18 +16,19 @@ defmodule CarsApi.Data.Model.CarContext do
   def car_item_query(params) do
 
     Enum.reduce(params, Cars, fn
-      {:take, %{amount: amount, offset: offset}}, query_chain  when is_integer(amount) and is_integer(offset) ->
+      {:take, %{amount: amount, offset: offset}}, query_chain when is_integer(amount) ->
         from(query_chain, limit: ^amount, offset: ^offset)
 
-      {:filter, filter}, query_chain ->
-        query_chain |> filter_query(filter)
-      |> Repo.all()
+      # {:filter, filter}, query_chain ->
+      #   query_chain |> filter_query(filter)
+
 
 
     end )
+    |> Repo.all()
   end
 
-  defp filter_query(query, params) do
-    
+  defp filter_query(query, _params) do
+    query
   end
 end

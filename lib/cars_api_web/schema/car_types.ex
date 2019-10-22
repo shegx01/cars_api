@@ -29,28 +29,28 @@ defmodule CarsApiWeb.Schema.CarTypes do
 
   end
 
-  # @desc "filters for car items in the store "
-  # input_object :car_item_filter do
-  #   field :price, :range_input, description: "filter cars based on different price ranges min max"
-  #   field :make, :string, description: "filter by car make"
-  #   field :year_range, :range_input, description: "filter by car year range"
-  #   field :mileage, :integer, description: "filter by car mileage  7000 will return cars with mileage less than 7000"
-  #   field :features, :string, description: "return cars that has keyword provided"
-  #   field :car_color, :color_input, description: "return cars with exterior and or interior color match"
+  @desc "filters for car items in the store "
+  input_object :car_item_filter do
+    field :price, non_null(:range_input), description: "filter cars based on different price ranges MIN_PRICE to MAX_PRICE"
+    field :make, non_null(:string), description: "filter by car make "
+    field :year_range, non_null(:range_input), description: "filter by car year range"
+    field :mileage, non_null(:integer), description: "filter by car mileage  7000 will return cars with mileage less than 7000"
+    field :features, non_null(:string), description: "return cars that has keyword provided"
+    field :car_color, non_null(:color_input), description: "return cars with exterior and or interior color match"
 
-  # end
+  end
 
-  #   @desc "color criteria for filtering with color"
-  #   enum :color_value do
-  #     value(:black)
-  #     value(:blue)
-  #     value(:gray)
-  #     value(:white)
-  #     value(:red)
-  #     value(:gold)
-  #     value(:purple)
-  #     value(:yellow)
-  #   end
+    @desc "color criteria for filtering with color"
+    enum :color_value do
+      value(:black)
+      value(:blue)
+      value(:gray)
+      value(:white)
+      value(:red)
+      value(:gold)
+      value(:purple)
+      value(:yellow)
+    end
 
   #   @desc "sorting the car items based on value criterias"
   #   enum :sort_by do
@@ -62,24 +62,24 @@ defmodule CarsApiWeb.Schema.CarTypes do
   #     value :oldest_year
   #   end
 
-  #   @desc "object to provide interior and exterior color for filter criteria"
-  #   input_object :color_input do
-  #     field :exterior_color, :color_value
-  #     field :interior_color, :color_value
-  #   end
+    @desc "object to provide interior and exterior color for filter criteria"
+    input_object :color_input do
+      field :exterior_color, :color_value
+      field :interior_color, :color_value
+    end
 
-  # @desc "object to provide minimum and maximum requirement for filter criteria"
-  #   input_object :range_input do
-  #     field :min, :integer
-  #     field :max, :integer
-  #   end
+  @desc "object to provide minimum and maximum requirement for filter criteria"
+    input_object :range_input do
+      field :min, :integer, description: "4 digit number and must be lesser than MAX"
+      field :max, :integer, description: "4 digit number number must be greater than MIN"
+    end
 
   #####################################
   # input object types
   #####################################
 
   input_object :take_input do
-    field :amount, :integer
-    field :offset, :integer
+    field :amount, non_null(:integer), description: "amount of cars to receive in one request"
+    field :offset, :integer, default_value: 0, description: "set offset for received car items"
   end
 end
