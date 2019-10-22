@@ -7,28 +7,19 @@ defmodule CarsApi.Data.Model.CarContext do
     Repo.all(Cars)
   end
 
-  def get_by_stock_num(stock_num) do
-    query = from(c in Cars, where: c.stock_number == ^stock_num)
-
-    Repo.one(query)
-  end
-
   def car_item_query(params) do
+    inspect(params)
 
     Enum.reduce(params, Cars, fn
-      {:take, %{amount: amount, offset: offset}}, query_chain when is_integer(amount) ->
-        from(query_chain, limit: ^amount, offset: ^offset)
+      {:take, %{amount: amount, offset: offset}}, query when is_integer(amount) ->
+        from(query, limit: ^amount, offset: ^offset)
 
-      # {:filter, filter}, query_chain ->
-      #   query_chain |> filter_query(filter)
+      {:price_range, %{min: mini, max: maxi}}, query ->
+        from q in query, where: q.base_price >= ^mini and q.base_price <= ^maxi
 
-
-
-    end )
+      {:year_range, %{min: mini, max: maxi}}, query ->
+        from q in query, where: q.year >= ^mini and q.year <= ^maxi
+    end)
     |> Repo.all()
-  end
-
-  defp filter_query(query, _params) do
-    query
   end
 end
