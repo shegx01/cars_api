@@ -71,6 +71,9 @@ defmodule CarsApi.Data.Model.CarContext do
       {:make, make}, query ->
         from q in query, where: ilike(q.make, ^"%#{make}%")
 
+      {:model, model}, query ->
+        from q in query, where: ilike(q.model, ^"%#{model}%")
+
       {:mileage, mileage}, query ->
         from q in query, where: q.mileage <= ^mileage
 

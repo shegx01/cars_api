@@ -7,7 +7,7 @@ defmodule CarsApi.Tools.GenerateNewDataset do
 
   defp transform_data(map) do
     for {key, value} <- map, into: %{} do
-      {convert_to_pascal(key), value}
+      {Macro.underscore(key), value}
     end
   end
 
@@ -17,20 +17,6 @@ defmodule CarsApi.Tools.GenerateNewDataset do
       file
       |> String.replace("\n", "")
       |> Jason.decode()
-    end
-  end
-
-  defp convert_to_pascal(word) do
-    pattern = ~r/[A-Z]/
-
-    case Regex.scan(pattern, word) do
-      [a] ->
-        str = "_" <> (a |> to_string() |> String.downcase())
-        [first, last] = String.split(word, pattern)
-        first <> str <> last
-
-      _ ->
-        word
     end
   end
 end

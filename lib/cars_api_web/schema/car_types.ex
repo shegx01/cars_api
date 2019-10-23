@@ -31,6 +31,23 @@ defmodule CarsApiWeb.Schema.CarTypes do
     field :image, :string, description: "an image others can gbet generated from the return url"
   end
 
+
+
+  # object :car_item_result do
+  #   field :car_item, :car_item
+  #   field :error, list_of(:input_error)
+  # end
+
+
+  # object :input_error do
+  #   field :key, non_null(:string)
+  #   field :message, non_null(:string)
+  # end
+
+
+
+
+
   ##############################
   # car item filters
   ###########################
@@ -38,6 +55,7 @@ defmodule CarsApiWeb.Schema.CarTypes do
   input_object :car_item_filter do
     field :stock_number, :integer, description: "request a single car by its transmission number"
     field :make, :string, description: "filter by car make "
+    field :model, :string, description: "filter by car model "
 
     field :mileage, :integer,
       description: "filter by car mileage  7000 will return cars with mileage less than 7000"
