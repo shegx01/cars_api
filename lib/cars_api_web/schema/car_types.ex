@@ -63,21 +63,21 @@ defmodule CarsApiWeb.Schema.CarTypes do
 
   @desc "car transmission value that should be passed to  transmission for filtering"
   enum :transmission_value do
-    value :automatic, description: "choice of transmission criteria"
-    value :"Manual 5 Speed", description: "choice of transmission criteria"
-    value :"Manual 6 Speed", description: "choice of transmission criteria"
-    value :"Manual 7 Speed", description: "choice of transmission criteria"
+    value(:automatic, description: "choice of transmission criteria")
+    value(:"Manual 5 Speed", description: "choice of transmission criteria")
+    value(:"Manual 6 Speed", description: "choice of transmission criteria")
+    value(:"Manual 7 Speed", description: "choice of transmission criteria")
   end
 
-  #   @desc "sorting the car items based on value criterias"
-  #   enum :sort_by do
-  #     value :lowest_price
-  #     value :highest_price
-  #     value :lowest_mileage
-  #     value :highest_mileage
-  #     value :newest_year
-  #     value :oldest_year
-  #   end
+  @desc "sorting the car items based on value criterias"
+  enum :sort_by do
+    value(:lowest_price)
+    value(:highest_price)
+    value(:lowest_mileage)
+    value(:highest_mileage)
+    value(:newest_year)
+    value(:oldest_year)
+  end
 
   #####################################
   # input object types
