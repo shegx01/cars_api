@@ -7,8 +7,10 @@ defmodule CarsApiWeb.Schema.RootQueryTypes do
     field :car_items, list_of(:car_item) do
       arg(:take, :take_input)
       arg(:filter, :car_item_filter)
-      arg(:year_range, :range_input)
       arg(:price_range, :range_input)
+      arg(:year_range, :range_input)
+      arg(:transmission, :transmission_value)
+      arg(:color, :color_input)
       resolve(&Resolvers.CarResolvers.resolve_car_item/3)
     end
   end

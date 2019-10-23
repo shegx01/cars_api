@@ -1,6 +1,10 @@
 defmodule CarsApiWeb.Schema.CarTypes do
   use Absinthe.Schema.Notation
 
+  ##################################
+  # object type of absinthe gql
+  ##################################
+
   @desc "a single car item request from the store"
   object :car_item do
     field :stock_number, :integer, description: "unique carItem id"
@@ -27,18 +31,23 @@ defmodule CarsApiWeb.Schema.CarTypes do
     field :image, :string, description: "an image others can gbet generated from the return url"
   end
 
+  ##############################
+  # car item filters
+  ###########################
   @desc "filters for car items in the store "
   input_object :car_item_filter do
+    field :stock_number, :integer, description: "request a single car by its transmission number"
     field :make, :string, description: "filter by car make "
 
     field :mileage, :integer,
       description: "filter by car mileage  7000 will return cars with mileage less than 7000"
 
     field :features, :string, description: "return cars that has keyword provided"
-
-    field :car_color, :color_input,
-      description: "return cars with exterior and or interior color match"
   end
+
+  ######################################
+  # enumerable type of absinthe gql
+  ######################################
 
   @desc "color criteria for filtering with color"
   enum :color_value do
@@ -52,6 +61,14 @@ defmodule CarsApiWeb.Schema.CarTypes do
     value(:yellow)
   end
 
+  @desc "car transmission value that should be passed to  transmission for filtering"
+  enum :transmission_value do
+    value :automatic, description: "choice of transmission criteria"
+    value :"Manual 5 Speed", description: "choice of transmission criteria"
+    value :"Manual 6 Speed", description: "choice of transmission criteria"
+    value :"Manual 7 Speed", description: "choice of transmission criteria"
+  end
+
   #   @desc "sorting the car items based on value criterias"
   #   enum :sort_by do
   #     value :lowest_price
@@ -62,18 +79,6 @@ defmodule CarsApiWeb.Schema.CarTypes do
   #     value :oldest_year
   #   end
 
-  @desc "object to provide interior and exterior color for filter criteria"
-  input_object :color_input do
-    field :exterior_color, :color_value
-    field :interior_color, :color_value
-  end
-
-  @desc "object to provide minimum and maximum requirement for filter criteria"
-  input_object :range_input do
-    field :min, :integer, default_value: 0
-    field :max, non_null(:integer)
-  end
-
   #####################################
   # input object types
   #####################################
@@ -81,5 +86,20 @@ defmodule CarsApiWeb.Schema.CarTypes do
   input_object :take_input do
     field :amount, non_null(:integer), description: "amount of cars to receive in one request"
     field :offset, :integer, default_value: 0, description: "set offset for received car items"
+  end
+
+  @desc "object to provide minimum and maximum or both min-max requirement for filter criteria"
+  input_object :range_input do
+    field :min, :integer,
+      default_value: 0,
+      description: "minimum value required for search critiria"
+
+    field :max, :integer, description: "maximum value required for search criteria"
+  end
+
+  @desc "object to provide interior and exterior color for filter criteria"
+  input_object :color_input do
+    field :exterior_color, :color_value
+    field :interior_color, :color_value
   end
 end
