@@ -13,6 +13,7 @@ defmodule CarsApiWeb.Schema.RootQueryTypes do
       arg(:color, :color_input)
       arg(:sort, :sort_by)
       resolve(&Resolvers.CarResolvers.resolve_car_item/3)
+      
     end
   end
 end
